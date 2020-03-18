@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.util.List;
 
 import static dev.yavuztas.stackoverflowwebservice.test.mock.MockQuestions.*;
@@ -100,6 +101,10 @@ class ApiServiceUnitTest {
         assertEquals(userModel1.getId(), model.getId());
         assertEquals(userModel1.getCreationDate(), model.getCreationDate());
         assertEquals(userModel1.getDisplayName(), model.getDisplayName());
+
+        Instant instant = Instant.ofEpochSecond(1584353353L);
+        System.out.println(instant);
+
     }
 
 }

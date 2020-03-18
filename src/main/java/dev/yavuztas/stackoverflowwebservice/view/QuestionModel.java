@@ -31,11 +31,24 @@ public class QuestionModel {
     @JsonProperty("answer_count")
     private Integer answerCount;
 
-    // Should be (datetime in ISO8601 format as String)
     @JsonProperty("creation_date")
     private Instant creationDate;
 
     private UserModel owner;
+
+    public Question toQuestion() {
+        Question e = new Question();
+        e.setId(getId());
+        e.setTags(getTags());
+        e.setAnswered(getAnswered());
+        e.setViewCount(getViewCount());
+        e.setAnswerCount(getAnswerCount());
+        e.setCreationDate(getCreationDate());
+        if (getOwner() != null) {
+            e.setUserId(getOwner().getId());
+        }
+        return e;
+    }
 
     public Long getId() {
         return id;

@@ -1,8 +1,6 @@
 package dev.yavuztas.stackoverflowwebservice.domain;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,6 +11,9 @@ public class Question {
     @Id
     private Long id;
 
+    // We define index to TAGS column of the collection table
+    // in order to optimize our tags IN (...) queries.
+    @CollectionTable(indexes = {@Index(columnList = "tags")})
     @ElementCollection
     private Set<String> tags = new LinkedHashSet<>();
 

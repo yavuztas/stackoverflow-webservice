@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    List<Question> getQuestionsByTagsIn(Collection<String> tags);
+    // we use distinct here in order to eleminate duplicate records when more than one tag matches
+    List<Question> findDistinctByTagsIn(Collection<String> tags);
 
 }

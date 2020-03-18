@@ -31,7 +31,7 @@ class QuestionControllerUnitTest {
 
     @Test
     void whenUsernameGiven_userItemsRequestShouldWork() throws Exception {
-        mockMvc.perform(get("/v/1.0/question/all"))
+        mockMvc.perform(get("/1.0/question/all"))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("[]"));
