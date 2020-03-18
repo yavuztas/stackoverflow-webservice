@@ -3,9 +3,8 @@ package dev.yavuztas.stackoverflowwebservice.view;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.yavuztas.stackoverflowwebservice.domain.Question;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+import java.util.Set;
 
 /**
  * Model class for {@link Question} web service response.
@@ -18,7 +17,7 @@ import java.util.List;
 public class QuestionView {
 
     private final Long id;
-    private final List<String> tags = new ArrayList<>();
+    private final Set<String> tags;
 
     @JsonProperty("is_answered")
     private final Boolean answered;
@@ -29,27 +28,32 @@ public class QuestionView {
     @JsonProperty("answer_count")
     private final Integer answerCount;
 
-    // Should be (datetime in ISO8601 format as String)
     @JsonProperty("creation_date")
-    private final LocalDate creationDate;
+    private final Instant creationDate;
 
     @JsonProperty("user_id")
     private final Long userId;
 
     public QuestionView(Question question) {
-        this.id = question.getId();
-        this.answered = question.getAnswered();
-        this.viewCount = question.getViewCount();
-        this.answerCount = question.getAnswerCount();
-        this.creationDate = question.getCreationDate();
-        this.userId = question.getUserId();
+        this(question.getId(), question.getTags(), question.getAnswered(), question.getViewCount(), question.getAnswerCount(), question.getCreationDate(),
+                question.getUserId());
+    }
+
+    public QuestionView(Long id, Set<String> tags, Boolean answered, Integer viewCount, Integer answerCount, Instant creationDate, Long userId) {
+        this.id = id;
+        this.tags = tags;
+        this.answered = answered;
+        this.viewCount = viewCount;
+        this.answerCount = answerCount;
+        this.creationDate = creationDate;
+        this.userId = userId;
     }
 
     public Long getId() {
         return id;
     }
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
@@ -65,7 +69,7 @@ public class QuestionView {
         return answerCount;
     }
 
-    public LocalDate getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 

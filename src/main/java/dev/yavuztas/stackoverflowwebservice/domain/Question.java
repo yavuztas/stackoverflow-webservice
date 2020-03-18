@@ -2,7 +2,7 @@ package dev.yavuztas.stackoverflowwebservice.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class Question {
     private Boolean answered;
     private Integer viewCount;
     private Integer answerCount;
-    private LocalDate creationDate;
+    private Instant creationDate;
     private Long userId;
 
     public Long getId() {
@@ -58,11 +58,11 @@ public class Question {
         this.answerCount = answerCount;
     }
 
-    public LocalDate getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
 

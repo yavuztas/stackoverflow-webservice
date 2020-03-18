@@ -3,72 +3,106 @@ package dev.yavuztas.stackoverflowwebservice.view;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.yavuztas.stackoverflowwebservice.domain.Question;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.StringJoiner;
 
 /**
- * Model class for {@link Question} remote service request.
- * We prefer to separate model classes for request and response (see {@link QuestionView}) even though they are same in our case.
- * However, this is a design choice to keep them loose so that we can handle different request and response formats easily and in a clean way.
+ * Model class for {@link Question} remote service response.
+ * We prefer to separate model classes for remote consuming and exposing (see {@link QuestionView}) even though they have same fields in our case.
+ * However, this is a design choice to keep them loose so that we can handle different consumer and exposer formats easily and in a clean way.
  *
  * @author Yavuz Tas
  */
 public class QuestionModel {
 
-    private final Long id;
-    private final List<String> tags = new ArrayList<>();
+    @JsonProperty("question_id")
+    private Long id;
+
+    private Set<String> tags = new LinkedHashSet<>();
 
     @JsonProperty("is_answered")
-    private final Boolean answered;
+    private Boolean answered;
 
     @JsonProperty("view_count")
-    private final Integer viewCount;
+    private Integer viewCount;
 
     @JsonProperty("answer_count")
-    private final Integer answerCount;
+    private Integer answerCount;
 
     // Should be (datetime in ISO8601 format as String)
     @JsonProperty("creation_date")
-    private final LocalDate creationDate;
+    private Instant creationDate;
 
-    @JsonProperty("user_id")
-    private final Long userId;
-
-    public QuestionModel(Question question) {
-        this.id = question.getId();
-        this.answered = question.getAnswered();
-        this.viewCount = question.getViewCount();
-        this.answerCount = question.getAnswerCount();
-        this.creationDate = question.getCreationDate();
-        this.userId = question.getUserId();
-    }
+    private UserModel owner;
 
     public Long getId() {
         return id;
     }
 
-    public List<String> getTags() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<String> getTags() {
         return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public Boolean getAnswered() {
         return answered;
     }
 
+    public void setAnswered(Boolean answered) {
+        this.answered = answered;
+    }
+
     public Integer getViewCount() {
         return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 
     public Integer getAnswerCount() {
         return answerCount;
     }
 
-    public LocalDate getCreationDate() {
+    public void setAnswerCount(Integer answerCount) {
+        this.answerCount = answerCount;
+    }
+
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public Long getUserId() {
-        return userId;
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public UserModel getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserModel owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", QuestionModel.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("tags=" + tags)
+                .add("answered=" + answered)
+                .add("viewCount=" + viewCount)
+                .add("answerCount=" + answerCount)
+                .add("creationDate=" + creationDate)
+                .add("owner=" + owner)
+                .toString();
     }
 }
