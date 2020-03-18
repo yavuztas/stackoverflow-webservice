@@ -1,5 +1,6 @@
 package dev.yavuztas.stackoverflowwebservice.domain;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.Instant;
@@ -11,7 +12,10 @@ public class Question {
 
     @Id
     private Long id;
+
+    @ElementCollection
     private Set<String> tags = new LinkedHashSet<>();
+
     private Boolean answered;
     private Integer viewCount;
     private Integer answerCount;
