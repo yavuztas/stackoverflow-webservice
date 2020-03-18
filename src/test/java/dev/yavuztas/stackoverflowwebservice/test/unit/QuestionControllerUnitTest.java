@@ -26,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 @Import(QuestionControllerUnitTestConfig.class)
 @WebMvcTest(controllers = QuestionController.class, excludeFilters =
-@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SwaggerConfig.class))
+@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SwaggerConfig.class)
+)
 class QuestionControllerUnitTest {
 
     @Autowired
@@ -49,7 +50,7 @@ class QuestionControllerUnitTest {
     }
 
     @Test
-    void whenSingleQuestionRequested_questionByIdAsJsonReturns() throws Exception {
+    void whenSingleQuestionRequested_questionAsJsonReturns() throws Exception {
 
         String questionView1 = mapper.writeValueAsString(MockQuestions.questionView1);
 

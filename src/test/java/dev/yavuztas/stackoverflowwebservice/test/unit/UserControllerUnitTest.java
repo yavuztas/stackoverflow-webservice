@@ -26,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 @Import(UserControllerUnitTestConfig.class)
 @WebMvcTest(controllers = UserController.class, excludeFilters =
-@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SwaggerConfig.class))
+@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SwaggerConfig.class)
+)
 class UserControllerUnitTest {
 
     @Autowired
