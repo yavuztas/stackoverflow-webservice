@@ -6,7 +6,8 @@ import java.time.Instant;
 import java.util.StringJoiner;
 
 /**
- * Model class for User web service response.
+ * Model class for user for both consuming and exposing side. Because both formats are identical
+ * we don't separate this model unless we need.
  *
  * @author Yavuz Tas
  */

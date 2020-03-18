@@ -4,10 +4,10 @@ import dev.yavuztas.stackoverflowwebservice.exception.NoPageSizeException;
 import dev.yavuztas.stackoverflowwebservice.exception.UserNotFoundException;
 import dev.yavuztas.stackoverflowwebservice.service.IApiService;
 import dev.yavuztas.stackoverflowwebservice.service.SOApiService;
-import dev.yavuztas.stackoverflowwebservice.view.QuestionApiResponse;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
-import dev.yavuztas.stackoverflowwebservice.view.UserApiResponse;
+import dev.yavuztas.stackoverflowwebservice.view.QuestionResponseView;
 import dev.yavuztas.stackoverflowwebservice.view.UserModel;
+import dev.yavuztas.stackoverflowwebservice.view.UserResponseView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +21,8 @@ import java.time.Instant;
 import java.util.List;
 
 import static dev.yavuztas.stackoverflowwebservice.test.mock.MockQuestions.*;
-import static dev.yavuztas.stackoverflowwebservice.test.mock.MockUsers.userApiResponse1;
 import static dev.yavuztas.stackoverflowwebservice.test.mock.MockUsers.userModel1;
+import static dev.yavuztas.stackoverflowwebservice.test.mock.MockUsers.userResponse1;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -42,11 +42,11 @@ class ApiServiceUnitTest {
     void setup() {
         apiService = new SOApiService(restTemplate);
 
-        when(restTemplate.getForObject(null, QuestionApiResponse.class, 2))
-                .thenReturn(questionApiResponse);
+        when(restTemplate.getForObject(null, QuestionResponseView.class, 2))
+                .thenReturn(questionResponse);
 
-        when(restTemplate.getForObject(null, UserApiResponse.class, 1L))
-                .thenReturn(userApiResponse1);
+        when(restTemplate.getForObject(null, UserResponseView.class, 1L))
+                .thenReturn(userResponse1);
     }
 
     @Test

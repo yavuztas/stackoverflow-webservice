@@ -2,8 +2,8 @@ package dev.yavuztas.stackoverflowwebservice.test.mock;
 
 import dev.yavuztas.stackoverflowwebservice.domain.Question;
 import dev.yavuztas.stackoverflowwebservice.test.mock.builders.QuestionModelBuilder;
-import dev.yavuztas.stackoverflowwebservice.view.QuestionApiResponse;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
+import dev.yavuztas.stackoverflowwebservice.view.QuestionResponseView;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionView;
 
 import java.time.Instant;
@@ -33,7 +33,7 @@ public class MockQuestions {
             .withId(2L).withTags(TAGS2).withAnswered(true).withViewCount(15)
             .withAnswerCount(1).withCreationDate(TODAY).withOwner(MockUsers.userModel2).build();
 
-    public static final QuestionApiResponse questionApiResponse = new QuestionApiResponse();
+    public static final QuestionResponseView questionResponse = new QuestionResponseView();
 
     public static final Question question1 = questionModel1.toQuestion();
     public static final Question question2 = questionModel2.toQuestion();
@@ -43,7 +43,7 @@ public class MockQuestions {
         List<QuestionModel> items = new ArrayList<>();
         items.add(questionModel1);
         items.add(questionModel2);
-        questionApiResponse.setItems(items);
+        questionResponse.setItems(items);
 
     }
 

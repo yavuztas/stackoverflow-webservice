@@ -10,8 +10,8 @@ import java.util.StringJoiner;
 
 /**
  * Model class for {@link Question} remote service response.
- * We prefer to separate model classes for remote consuming and exposing (see {@link QuestionView}) even though they have same fields in our case.
- * However, this is a design choice to keep them loose so that we can handle different consumer and exposer formats easily and in a clean way.
+ * We prefer to separate model classes for remote consuming and exposing (see {@link QuestionView}).
+ * This is a design choice to keep them loose so that we can handle different consumer and exposer formats easily and in a clean way.
  *
  * @author Yavuz Tas
  */

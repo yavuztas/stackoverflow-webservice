@@ -1,4 +1,4 @@
-package dev.yavuztas.stackoverflowwebservice.test.unit;
+package dev.yavuztas.stackoverflowwebservice.test.unit.config;
 
 import dev.yavuztas.stackoverflowwebservice.domain.Question;
 import dev.yavuztas.stackoverflowwebservice.repository.QuestionRepository;

@@ -2,10 +2,10 @@ package dev.yavuztas.stackoverflowwebservice.service;
 
 import dev.yavuztas.stackoverflowwebservice.exception.NoPageSizeException;
 import dev.yavuztas.stackoverflowwebservice.exception.UserNotFoundException;
-import dev.yavuztas.stackoverflowwebservice.view.QuestionApiResponse;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
-import dev.yavuztas.stackoverflowwebservice.view.UserApiResponse;
+import dev.yavuztas.stackoverflowwebservice.view.QuestionResponseView;
 import dev.yavuztas.stackoverflowwebservice.view.UserModel;
+import dev.yavuztas.stackoverflowwebservice.view.UserResponseView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class SOApiService implements IApiService {
             throw new NoPageSizeException();
         }
         // fetching api response with url parameter pageSize populated
-        QuestionApiResponse response = restTemplate.getForObject(questionApi, QuestionApiResponse.class, pageSize);
+        QuestionResponseView response = restTemplate.getForObject(questionApi, QuestionResponseView.class, pageSize);
         return response.getItems();
     }
 
@@ -51,7 +51,7 @@ public class SOApiService implements IApiService {
             throw new UserNotFoundException(userId);
         }
 
-        UserApiResponse response = restTemplate.getForObject(userApi, UserApiResponse.class, userId);
+        UserResponseView response = restTemplate.getForObject(userApi, UserResponseView.class, userId);
         if (response.getItems().size() == 0) {
             throw new UserNotFoundException(userId);
         }

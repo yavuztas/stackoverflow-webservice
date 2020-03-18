@@ -9,7 +9,7 @@ import java.util.StringJoiner;
  *
  * @author Yavuz Tas
  */
-public class QuestionApiResponse {
+public class QuestionResponseView {
 
     private List<QuestionModel> items = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class QuestionApiResponse {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", QuestionApiResponse.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", QuestionResponseView.class.getSimpleName() + "[", "]")
                 .add("items=" + items)
                 .toString();
     }
