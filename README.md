@@ -15,22 +15,14 @@ mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8000
 ```
 
 ### Running Options
-To run User Webservice Application over on **Mysql**:
-- Make sure you have a running Mysql instance on `localhost:3306`
-- Create an empty schema `stackoverflow_webservice` if you haven't already
+To run application over on **H2 file** database:
 - Simply navigate to the project folder and execute command below:
-```
-mvn spring-boot:run -Dspring-boot.run.profiles=prod,import -Dspring-boot.run.arguments=--spring.datasource.username=root,--spring.datasource.password=password
-```
-Certainly, you should provide your own database username and password instead of `root` and `password` parts in the above command.
-
-If you have already data populated in your database you should skip `import` profile:
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=prod
 ```
 
-Alternatively, you can run the application without any external database. 
-An **H2 in-memory** database and some amount of test data automatically configured if you just use the `dev` profile:
+Alternatively, you can run the application without any persistent database. 
+An **H2 in-memory** database automatically configured if you just use the `dev` profile:
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
