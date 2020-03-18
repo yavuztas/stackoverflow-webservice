@@ -72,6 +72,10 @@ which was considered the most critical part for this application.
 it's hardcoded in [springfox.js](https://github.com/springfox/springfox/blob/34246cf6925ac7ea985969de8a2ced2dab3982ec/springfox-swagger-ui/src/web/js/springfox.js#L135).
 We should consider to fork repository and fix the hardcoded part. Also, forking would be the best choice if we need to customize style, CSS and HTML structure. 
 
+5. We configured method level cache for `SOApiService.fetchUser`. For the sake of simplicity we prefer [Caffeine](https://github.com/ben-manes/caffeine) java cache
+library. However, Spring supports a good level of cache abstraction so we can configure a more powerful, distributed cache provider like Hazelcast later if we need.  
+You can find the Caffeine configuration about caching like size, ttl, etc. in `application.properties` file.
+
 ### Notes About Security
 This web service designed without security. Ideally in production, accessing end points should be restricted in network level (like: DMZ, firewall configurations, ip restriction, etc.) 
 unless there is a requirement to make them public.

@@ -8,6 +8,7 @@ import dev.yavuztas.stackoverflowwebservice.view.UserModel;
 import dev.yavuztas.stackoverflowwebservice.view.UserResponseView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -45,6 +46,7 @@ public class SOApiService implements IApiService {
     }
 
     @Override
+    @Cacheable(value = "usercache")
     public UserModel fetchUser(Long userId) {
 
         if (userId == null || userId <= 0) {
