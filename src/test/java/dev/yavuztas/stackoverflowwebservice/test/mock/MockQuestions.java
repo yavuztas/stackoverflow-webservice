@@ -1,5 +1,6 @@
 package dev.yavuztas.stackoverflowwebservice.test.mock;
 
+import dev.yavuztas.stackoverflowwebservice.domain.Question;
 import dev.yavuztas.stackoverflowwebservice.test.mock.builders.QuestionModelBuilder;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionApiResponse;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
@@ -33,6 +34,9 @@ public class MockQuestions {
             .withAnswerCount(1).withCreationDate(TODAY).withOwner(MockUsers.userModel2).build();
 
     public static final QuestionApiResponse questionApiResponse = new QuestionApiResponse();
+
+    public static final Question question1 = questionModel1.toQuestion();
+    public static final Question question2 = questionModel2.toQuestion();
 
     static {
 
