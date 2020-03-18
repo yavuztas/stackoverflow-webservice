@@ -1,5 +1,7 @@
 package dev.yavuztas.stackoverflowwebservice.domain;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -15,6 +17,9 @@ public class Question {
     // We define index to TAGS column of the collection table
     // in order to optimize our tags IN (...) queries.
     @CollectionTable(indexes = {@Index(columnList = "tags")})
+    // Ideally, question/all endpoint should optimized by pagination.
+    // So, we prefer @BatchSize instead of jpql join fetch.
+    @BatchSize(size = 20)
     @ElementCollection
     private Set<String> tags = new LinkedHashSet<>();
 
