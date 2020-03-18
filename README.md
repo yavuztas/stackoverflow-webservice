@@ -76,6 +76,9 @@ We should consider to fork repository and fix the hardcoded part. Also, forking 
 library. However, Spring supports a good level of cache abstraction so we can configure a more powerful, distributed cache provider like Hazelcast later if we need.  
 You can find the Caffeine configuration about caching like size, ttl, etc. in `application.properties` file.
 
+6. Since our web service is public, we may consider to cache some other endpoints like `/question/all` and `/question/{questionId}` 
+to prevent hammering over on our database.
+
 ### Notes About Security
 This web service designed without security. Ideally in production, accessing end points should be restricted in network level (like: DMZ, firewall configurations, ip restriction, etc.) 
 unless there is a requirement to make them public.
