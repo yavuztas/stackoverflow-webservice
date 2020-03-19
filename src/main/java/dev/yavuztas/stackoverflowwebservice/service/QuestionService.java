@@ -14,8 +14,11 @@ import java.util.Optional;
 @Service
 public class QuestionService implements IQuestionService {
 
-    @Autowired
     private QuestionRepository questionRepository;
+
+    public QuestionService(@Autowired QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     @Override
     public Question getQuestion(Long id) {
