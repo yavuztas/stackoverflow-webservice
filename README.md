@@ -15,35 +15,24 @@ mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8000
 ```
 
 ### Running Options
-To run application over on **H2 file** database:
-- Simply navigate to the project folder and execute command below:
-```
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
-```
-
-Alternatively, you can run the application without any persistent database. 
+The application runs on **H2 file** database by default. Alternatively, you can run the application with in-memory non-persistent database. 
 An **H2 in-memory** database automatically configured if you just use the `dev` profile:
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
-```
-
-Additionaly, the default fallback profile is also `dev` profile so you can easily skip `-Dspring-boot.run.profiles=dev` part and run directly:
-```
-mvn spring-boot:run
 ```
 ### Run Using Docker
 To run with docker you can simply execute `./build.sh` file which contains the command below:
 ```
 mvn clean install
 docker container rm stackoverflow-webservice
-docker build --build-arg USER=webservice -t dockerhub/stackoverflow-webservice-0.0.1 .
-docker run -p 8080:8000 --name stackoverflow-webservice -e JAVA_OPTS=-Dserver.port=8000 dockerhub/stackoverflow-webservice-0.0.1
+docker build -t devyavuztas/stackoverflow-webservice .
+docker run -p 8080:8080 --name stackoverflow-webservice devyavuztas/stackoverflow-webservice
 ```
-If you would like to deploy into your docker hub, do not forget to change `dockerhub/` to your docker hub user.
+If you would like to deploy into your docker hub, do not forget to change `devyavuztas/` to your docker hub user.
 
 Alternatively, you can use the ready image from the hub directly:
 ```
-docker run -p 8080:8000 --name stackoverflow-webservice -e JAVA_OPTS=-Dserver.port=8000 devyavuztas/stackoverflow-webservice-0.0.1
+docker run -p 8080:8080 devyavuztas/stackoverflow-webservice
 ```
  
 ### Automated Tests 
@@ -59,7 +48,7 @@ http://localhost:8080/api
 ```
 ### Design Notes
 1. Under the package `dev.yavuztas.stackoverflowwebservice.view` we create model classes for web service requests and remote service responses 
-in order to expose our data as well as consume the remote data in a controlled way. Besides, we aim to keep our domain models clean. 
+in order to expose our data as well as consume the remote data in a controlled way. Thus, we can keep our domain models clean. 
 Certainly, there are alternatives like Jackson `@JsonView` however, we prefer not to spread our conversion logic over on domain models.
 
 2. Since we customized error handling as a sample in `ApiErrorHandler` we have a chance to guide our consumers by more meaningful error messages 
@@ -70,15 +59,16 @@ which was considered the most critical part for this application.
 
 4. In order to customize Swagger home page, no matter how we handle on our side we cannot change `swagger-ui.html` as for now. This is because 
 it's hardcoded in [springfox.js](https://github.com/springfox/springfox/blob/34246cf6925ac7ea985969de8a2ced2dab3982ec/springfox-swagger-ui/src/web/js/springfox.js#L135).
-We should consider to fork repository and fix the hardcoded part. Also, forking would be the best choice if we need to customize style, CSS and HTML structure. 
+We should consider to fork repository and fix the hardcoded part. Also, forking would be the best choice if we need to customize the page style and edit CSS files 
+and HTML structure. 
 
 5. We configured method level cache for `SOApiService.fetchUser`. For the sake of simplicity we prefer [Caffeine](https://github.com/ben-manes/caffeine) java cache
 library. However, Spring supports a good level of cache abstraction so we can configure a more powerful, distributed cache provider like Hazelcast later if we need.  
 You can find the Caffeine configuration about caching like size, ttl, etc. in `application.properties` file.
 
 6. Since our web service is public, we may consider to cache some other endpoints like `/question/all` and `/question/{questionId}` 
-to prevent hammering over on our database.
+to prevent hammering over on our database. However, the other endpoints left uncached for now.
 
 ### Notes About Security
-This web service designed without security. Ideally in production, accessing end points should be restricted in network level (like: DMZ, firewall configurations, ip restriction, etc.) 
-unless there is a requirement to make them public.
+This web service designed without security. Ideally in production, accessing end points should be restricted in network level 
+(like: DMZ, firewall configurations, ip restriction, etc.) unless there is a requirement to make them public.
