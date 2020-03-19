@@ -1,7 +1,6 @@
 package dev.yavuztas.stackoverflowwebservice.test.unit;
 
 import dev.yavuztas.stackoverflowwebservice.exception.NoPageSizeException;
-import dev.yavuztas.stackoverflowwebservice.exception.UserNotFoundException;
 import dev.yavuztas.stackoverflowwebservice.service.IApiService;
 import dev.yavuztas.stackoverflowwebservice.service.SOApiService;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
@@ -19,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static dev.yavuztas.stackoverflowwebservice.test.mock.MockQuestions.*;
 import static dev.yavuztas.stackoverflowwebservice.test.mock.MockUsers.userModel1;
@@ -86,21 +86,21 @@ class ApiServiceUnitTest {
     }
 
     @Test
-    void whenUserIdNotGiven_fetchUserThrowsException() {
-        assertThrows(UserNotFoundException.class, () -> apiService.fetchUser(null));
-        assertThrows(UserNotFoundException.class, () -> apiService.fetchUser(0L));
-        assertThrows(UserNotFoundException.class, () -> apiService.fetchUser(-1L));
+    void whenUserIdNotGiven_fetchUserReturnsNull() {
+        assertFalse(apiService.fetchUser(null).isPresent());
+        assertFalse(apiService.fetchUser(0L).isPresent());
+        assertFalse(apiService.fetchUser(-1L).isPresent());
     }
 
     @Test
     void whenUserIdGiven_fetchUserWorks() {
 
-        UserModel model = apiService.fetchUser(1L);
+        Optional<UserModel> model = apiService.fetchUser(1L);
 
-        assertNotNull(model);
-        assertEquals(userModel1.getId(), model.getId());
-        assertEquals(userModel1.getCreationDate(), model.getCreationDate());
-        assertEquals(userModel1.getDisplayName(), model.getDisplayName());
+        assertTrue(model.isPresent());
+        assertEquals(userModel1.getId(), model.get().getId());
+        assertEquals(userModel1.getCreationDate(), model.get().getCreationDate());
+        assertEquals(userModel1.getDisplayName(), model.get().getDisplayName());
 
         Instant instant = Instant.ofEpochSecond(1584353353L);
         System.out.println(instant);

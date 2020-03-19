@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Service class to import questions on application startup. Import size customizable by a property.
+ * Service class to import questions on application startup. Import size customizable by the property
+ * api.remote.so.questions.importsize in application.properties file.
  * However, we should notice that higher import sizes can cause memory issues. If we need to import
  * higher amount records (like > 1000) then we should implement importFeaturedQuestions method
  * to save our entities and flush in a batch of smaller sizes.
+ * Also, this class is configured to run only in production profile so that we can disable question importing
+ * when our automated tests running.
  */
+
+@Profile("prod")
 @Service
 public class QuestionImporter implements IQuestionImporter {
 
@@ -49,3 +55,5 @@ public class QuestionImporter implements IQuestionImporter {
     }
 
 }
+
+

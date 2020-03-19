@@ -1,7 +1,6 @@
 package dev.yavuztas.stackoverflowwebservice.service;
 
 import dev.yavuztas.stackoverflowwebservice.exception.NoPageSizeException;
-import dev.yavuztas.stackoverflowwebservice.exception.UserNotFoundException;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionModel;
 import dev.yavuztas.stackoverflowwebservice.view.QuestionResponseView;
 import dev.yavuztas.stackoverflowwebservice.view.UserModel;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A client for Stackoverflow API. We prefer constructor injection here. We have two reasons for that.
@@ -45,20 +45,25 @@ public class SOApiService implements IApiService {
         return response.getItems();
     }
 
+    /**
+     * We return {@link Optional} here instead of throwing exception because we want to cache also null users
+     *
+     * @return
+     */
     @Override
     @Cacheable(value = "usercache")
-    public UserModel fetchUser(Long userId) {
+    public Optional<UserModel> fetchUser(Long userId) {
 
         if (userId == null || userId <= 0) {
-            throw new UserNotFoundException(userId);
+            return Optional.empty();
         }
 
         UserResponseView response = restTemplate.getForObject(userApi, UserResponseView.class, userId);
         if (response.getItems().size() == 0) {
-            throw new UserNotFoundException(userId);
+            return Optional.empty();
         }
 
-        return response.getItems().get(0);
+        return Optional.of(response.getItems().get(0));
     }
 
 }

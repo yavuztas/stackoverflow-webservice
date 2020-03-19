@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Optional;
+
 @TestConfiguration
 public class UserControllerUnitTestConfig {
 
@@ -18,7 +20,7 @@ public class UserControllerUnitTestConfig {
     @Bean
     public IApiService apiService() {
         IApiService apiService = Mockito.mock(SOApiService.class);
-        Mockito.when(apiService.fetchUser(3L)).thenReturn(MockUsers.userModel3);
+        Mockito.when(apiService.fetchUser(3L)).thenReturn(Optional.of(MockUsers.userModel3));
         return apiService;
     }
 
