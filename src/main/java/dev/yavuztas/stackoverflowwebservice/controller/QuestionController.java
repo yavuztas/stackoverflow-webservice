@@ -35,8 +35,8 @@ public class QuestionController {
     }
 
     /**
-     * Do not return any response body for delete. If the response status is 200
-     * then it means we successfuly removed the record.
+     * We don't return any response body for delete. If the response status is 200
+     * then it means we successfuly removed the record. Otherwise it returns 404.
      */
     @ApiOperation("Remove a question by id")
     @DeleteMapping("/question/{questionId}")

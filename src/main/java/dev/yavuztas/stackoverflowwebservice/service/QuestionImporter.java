@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
  * Also, this class is configured to run only in production profile so that we can disable question importing
  * when our automated tests running.
  */
-
 @Profile("prod")
 @Service
 public class QuestionImporter implements IQuestionImporter {
